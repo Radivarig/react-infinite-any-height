@@ -30,8 +30,8 @@ var InfiniteAnyHeight = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.list.length != this.props.list.length)
-    this.setList(nextProps.list)
+    if (nextProps.list != this.props.list)
+      this.setList(nextProps.list)
   },
 
   setList(propsList) {
