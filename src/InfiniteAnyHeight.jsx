@@ -12,6 +12,9 @@ var InfiniteAnyHeight = React.createClass({
 
   addHeight(i, height) {
     var heights = this.state.heights
+    var scrollDiff = height -heights[i]
+    if (scrollDiff && this.scrollTopDelta < 0)
+      document.body.scrollTop += scrollDiff
     heights[i] = height
     this.setState({heights})
   },
@@ -45,9 +48,22 @@ var InfiniteAnyHeight = React.createClass({
     })
   },
 
+  lastScrollTop: 0,
+  scrollTopDelta: 0,
+
+  handleScroll() {
+    var scrollTop = document.body.scrollTop
+    this.scrollTopDelta = scrollTop -this.lastScrollTop
+    this.lastScrollTop = scrollTop
+  },
+
   render() {
     return (
-      <ReactInfinite elementHeight={this.state.heights} useWindowAsScrollContainer>
+      <ReactInfinite
+        elementHeight={this.state.heights}
+        handleScroll={this.handleScroll}
+        useWindowAsScrollContainer
+        >
         {this.state.list}
       </ReactInfinite>
     )
