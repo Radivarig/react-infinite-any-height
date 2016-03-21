@@ -24,14 +24,14 @@ navigate to `localhost:8080`
 ```javascript
 // ...
 var React = require('react')
-var render = require('react-dom').render
+var ReactDOM = require('react-dom')
 
 var InfiniteAnyHeight = require('react-infinite-any-height')
 
 var App = React.createClass({
   getInitialState() {
     var list =
-      new Array(1000).fill('').map((x, i)=>{
+      new Array(10000).fill('').map((x, i)=>{
         var height = 50 +Math.round(Math.abs((Math.sin(i) *200)))
         return (
           <div key={i} style={{height: height, width: '100wv', border: 'solid 1px'}}>
@@ -44,14 +44,21 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <InfiniteAnyHeight containerHeight={window.innerHeight -20} list={this.state.list} />
+      <InfiniteAnyHeight
+        list={this.state.list}
+        useWindowAsScrollContainer
+        />
     )
   }
 })
-var app = document.createElement('div')
-document.body.appendChild(app)
-require('react-dom').render(<App/>, app)
+
+var elemDiv = document.createElement('div')
+document.body.appendChild(elemDiv)
+ReactDOM.render(<App/>, elemDiv)
 ```
+
+When updating `list` make sure to use `.splice(0)` to change reference.  
+All `props` are passed to react-infinite as well.
 
 ### License
 
