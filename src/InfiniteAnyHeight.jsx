@@ -62,7 +62,7 @@ var InfiniteAnyHeight = React.createClass({
       <ReactInfinite
         elementHeight={this.state.heights}
         handleScroll={this.handleScroll}
-        useWindowAsScrollContainer
+        {...this.props}
         >
         {this.state.list}
       </ReactInfinite>

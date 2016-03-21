@@ -19,7 +19,10 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <InfiniteAnyHeight containerHeight={window.innerHeight -20} list={this.state.list} />
+      <InfiniteAnyHeight
+        list={this.state.list}
+        useWindowAsScrollContainer
+        />
     )
   }
 })
