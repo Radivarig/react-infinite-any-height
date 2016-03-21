@@ -6,7 +6,7 @@ TODO: Try it - [Live Example](https://radivarig.github.io/#/react-infinite-any-h
 
 ### Install
 
-`npm install react-infinite-any-height` (peer dependencies: `react react-dom`)
+`npm install react-infinite-any-height` (peer dependencies: `react`)
 
 ### Demo
 
@@ -24,7 +24,6 @@ navigate to `localhost:8080`
 ```javascript
 // ...
 var React = require('react')
-var ReactDOM = require('react-dom')
 
 var InfiniteAnyHeight = require('react-infinite-any-height')
 
@@ -54,7 +53,7 @@ var App = React.createClass({
 
 var elemDiv = document.createElement('div')
 document.body.appendChild(elemDiv)
-ReactDOM.render(<App/>, elemDiv)
+React.render(<App/>, elemDiv)
 ```
 
 When updating `list` make sure to use `.splice(0)` to change reference.  

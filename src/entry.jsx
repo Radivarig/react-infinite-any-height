@@ -1,5 +1,4 @@
 var React = require('react')
-var ReactDOM = require('react-dom')
 
 var InfiniteAnyHeight = require('./InfiniteAnyHeight.jsx')
 
@@ -29,4 +28,4 @@ var App = React.createClass({
 
 var elemDiv = document.createElement('div')
 document.body.appendChild(elemDiv)
-ReactDOM.render(<App/>, elemDiv)
+React.render(<App/>, elemDiv)

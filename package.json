@@ -25,11 +25,10 @@
     "height"
   ],
   "peerDependencies": {
-    "react": ">=0.14.1",
-    "react-dom": ">=0.14.1"
+    "react": "^0.13.3"
   },
   "dependencies": {
     "jsx-loader": "^0.13.x",
-    "react-infinite": "^0.9.0"
+    "react-infinite": "^0.6.0"
   }
 }
