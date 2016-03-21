@@ -1,0 +1,35 @@
+{
+  "name": "react-infinite-any-height",
+  "version": "1.0.0",
+  "description": "ReactJS component for displaying infinite list of elements with arbitrary height.",
+  "author": "Reslav Hollos",
+  "license": "MIT",
+  "main": "./exports.js",
+  "scripts": {
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.js --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Radivarig/react-infinite-any-height.git"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.9.0"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "infinite",
+    "scroll",
+    "any",
+    "height"
+  ],
+  "peerDependencies": {
+    "react": ">=0.14.1",
+    "react-dom": ">=0.14.1"
+  },
+  "dependencies": {
+    "jsx-loader": "^0.13.x",
+    "react-infinite": "^0.9.0"
+  }
+}
