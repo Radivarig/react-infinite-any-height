@@ -57,8 +57,11 @@ document.body.appendChild(elemDiv)
 ReactDOM.render(<App/>, elemDiv)
 ```
 
-When updating `list` make sure to use `.splice(0)` to change reference.  
-All `props` are passed to react-infinite as well.
+All `props` are passed to `react-infinite` as well.  
+When updating `list` make sure to use `.slice(0)` to change reference.  
+If `useWindowAsScrollContainer` is ommited, both `containerHeight` and  
+`scrollContainer` ( the node that has the active .scrollTop) props are required.  
+
 
 ### License
 
