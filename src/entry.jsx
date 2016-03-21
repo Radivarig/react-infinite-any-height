@@ -7,10 +7,13 @@ var App = React.createClass({
   getInitialState() {
     var list =
       new Array(10000).fill('').map((x, i)=>{
-        var height = 50 +Math.round(Math.abs((Math.sin(i) *200)))
+        var height = 100 +Math.round(Math.abs((Math.sin(i) *250)))
         return (
-          <div key={i} style={{height: height, width: '100wv', border: 'solid 1px'}}>
-            i: {i}, raw_height: {height}
+          <div key={i} style={{height: height, width: '100wv', border: 'solid 1px', backgroundColor: '#' +height}}>
+            height: {height +2 /*border width*/}
+            <div style={{textAlign: 'center', color: 'white'}}>
+              item: {i}
+            </div>
           </div>
         )
       })
@@ -21,6 +24,7 @@ var App = React.createClass({
     return (
       <InfiniteAnyHeight
         list={this.state.list}
+        preloadAdditionalHeight={window.innerHeight*2}
         useWindowAsScrollContainer
         />
     )

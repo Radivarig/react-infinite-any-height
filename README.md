@@ -2,7 +2,7 @@
 
 [react-infinite](https://github.com/seatgeek/react-infinite) with automatic height calculation.
 
-TODO: Try it - [Live Example](https://radivarig.github.io/#/react-infinite-any-height)
+Try it - [Live Example](https://radivarig.github.io/#/react-infinite-any-height)
 
 ### Install
 
@@ -10,7 +10,7 @@ TODO: Try it - [Live Example](https://radivarig.github.io/#/react-infinite-any-h
 
 ### Demo
 
-TODO: Check out [Live Example](https://radivarig.github.io/#/react-infinite-any-height),
+Check out [Live Example](https://radivarig.github.io/#/react-infinite-any-height),
 or run locally
 ```bash
 git clone git@github.com:Radivarig/react-infinite-any-height.git
@@ -32,10 +32,13 @@ var App = React.createClass({
   getInitialState() {
     var list =
       new Array(10000).fill('').map((x, i)=>{
-        var height = 50 +Math.round(Math.abs((Math.sin(i) *200)))
+        var height = 100 +Math.round(Math.abs((Math.sin(i) *250)))
         return (
-          <div key={i} style={{height: height, width: '100wv', border: 'solid 1px'}}>
-            i: {i}, raw_height: {height}
+          <div key={i} style={{height: height, width: '100wv', border: 'solid 1px', backgroundColor: '#' +height}}>
+            height: {height +2 /*border width*/}
+            <div style={{textAlign: 'center', color: 'white'}}>
+              item: {i}
+            </div>
           </div>
         )
       })
@@ -46,6 +49,7 @@ var App = React.createClass({
     return (
       <InfiniteAnyHeight
         list={this.state.list}
+        preloadAdditionalHeight={window.innerHeight*2}
         useWindowAsScrollContainer
         />
     )
@@ -60,7 +64,7 @@ ReactDOM.render(<App/>, elemDiv)
 All `props` are passed to `react-infinite` as well.  
 When updating `list` make sure to use `.slice(0)` to change reference.  
 If `useWindowAsScrollContainer` is ommited, both `containerHeight` and  
-`scrollContainer` ( the node that has the active .scrollTop) props are required.  
+`scrollContainer` (the node that has the active .scrollTop) props are required.  
 
 
 ### License
