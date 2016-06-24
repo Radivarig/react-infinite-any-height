@@ -3,6 +3,12 @@ var ReactDOM = require('react-dom')
 var ReactInfinite = require('react-infinite')
 
 var InfiniteAnyHeight = React.createClass({
+  getDefaultProps() {
+    return {
+      updateHeightsOf: {indexList: [], timeStamp: 0}
+    }
+  },
+
   getInitialState() {
     return {
       heights: [],
@@ -32,6 +38,30 @@ var InfiniteAnyHeight = React.createClass({
   componentWillReceiveProps(nextProps) {
     if (nextProps.list != this.props.list)
       this.setList(nextProps.list)
+
+    if (nextProps.updateHeightsOf.timeStamp != this.props.updateHeightsOf.timeStamp)
+      this.remountByIndices (nextProps.updateHeightsOf.indexList, nextProps.list)
+  },
+
+  remountByIndices (indices, origList) {
+    var list = this.state.list
+    for (var i = 0; i < indices.length; ++i) {
+      var ind = indices[i]
+      var elem = origList[ind]
+      list[ind] = this.getGetHeightWrapper(elem, ind +'_' +new Date().getTime())
+    }
+    this.setState({list})
+  },
+
+  getGetHeightWrapper (x, i) {
+    return (
+      <GetHeightWrapper
+        addHeight={this.addHeight.bind(this, i)}
+        key={i}
+      >
+      {x}
+      </GetHeightWrapper>
+    )
   },
 
   setList(propsList) {
@@ -39,14 +69,7 @@ var InfiniteAnyHeight = React.createClass({
     var list =
     propsList.map( (x, i)=>{
       heights[i] = this.state.heights[i] || 200
-      return (
-        <GetHeightWrapper
-          addHeight={this.addHeight.bind(this, i)}
-          key={i}
-        >
-          {x}
-        </GetHeightWrapper>
-      )
+      return this.getGetHeightWrapper (x, i)
     })
     this.setState({
       heights,
