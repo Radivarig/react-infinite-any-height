@@ -1,5 +1,4 @@
 var React = require('react')
-var ReactDOM = require('react-dom')
 var ReactInfinite = require('react-infinite')
 
 var InfiniteAnyHeight = React.createClass({
@@ -107,7 +106,7 @@ var GetHeightWrapper = React.createClass({
   },
 
   setHeight() {
-    var height = ReactDOM.findDOMNode(this).getBoundingClientRect().height
+    var height = this.node.getBoundingClientRect().height
     this.props.addHeight(height)
   },
   render() {
@@ -117,7 +116,8 @@ var GetHeightWrapper = React.createClass({
       clear: 'both',
     }
     return (
-      <span style={s} className={this.state.height +'-px'}>
+      <span ref={node => this.node = node}
+          style={s} className={this.state.height +'-px'}>
         {this.props.children}
       </span>
     )
