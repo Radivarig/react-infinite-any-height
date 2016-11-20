@@ -1,1 +1,1 @@
-module.exports = require('jsx-loader!./src/InfiniteAnyHeight.jsx')
+module.exports = require('../jsx-loader!./src/InfiniteAnyHeight.jsx')
