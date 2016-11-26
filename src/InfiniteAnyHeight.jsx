@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactInfinite from 'react-infinite';
+import React from 'react'
+import ReactInfinite from 'react-infinite'
 
 class GetHeightWrapper extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       height: undefined
@@ -15,9 +15,9 @@ class GetHeightWrapper extends React.Component {
   }
 
   setHeight() {
-    var height = this.node.getBoundingClientRect().height;
-    this.props.addHeight(height);
-    this.setState({height});
+    var height = this.node.getBoundingClientRect().height
+    this.props.addHeight(height)
+    this.setState({height})
   }
 
   render() {
@@ -42,15 +42,15 @@ GetHeightWrapper.propTypes = {
 
 class InfiniteAnyHeight extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       heights: [],
       list: [],
     };
 
-    this.lastScrollTop = 0;
-    this.scrollTopDelta = 0;
+    this.lastScrollTop = 0
+    this.scrollTopDelta = 0
   }
 
   getScrollContainer() {
@@ -79,10 +79,10 @@ class InfiniteAnyHeight extends React.Component {
   }
 
   setList(propsList) {
-    var heights = [];
+    var heights = []
 
     var list = propsList.map((x, i) => {
-      heights[i] = this.state.heights[i] || this.props.heights[i] || 200;
+      heights[i] = this.state.heights[i] || this.props.heights[i] || 200
 
       return (
         <GetHeightWrapper
@@ -90,8 +90,8 @@ class InfiniteAnyHeight extends React.Component {
             key={i}>
           {x}
         </GetHeightWrapper>
-      );
-    });
+      )
+    })
 
     this.setState({
       heights,
@@ -121,7 +121,7 @@ class InfiniteAnyHeight extends React.Component {
 InfiniteAnyHeight.defaultProps = {
   heightsUpdateCallback: ()=>{},
   heights: []
-};
+}
 
 InfiniteAnyHeight.propTypes = {
   heights: React.PropTypes.array,
@@ -131,4 +131,4 @@ InfiniteAnyHeight.propTypes = {
   useWindowAsScrollContainer: React.PropTypes.bool
 }
 
-export default InfiniteAnyHeight;
+export default InfiniteAnyHeight
