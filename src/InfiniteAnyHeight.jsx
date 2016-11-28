@@ -1,20 +1,63 @@
-var React = require('react')
-var ReactDOM = require('react-dom')
-var ReactInfinite = require('react-infinite')
+import React from 'react'
+import ReactInfinite from 'react-infinite'
 
-var InfiniteAnyHeight = React.createClass({
-  getInitialState() {
-    return {
+class GetHeightWrapper extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      height: undefined
+    }
+  }
+
+  componentDidMount() {
+    this.setHeight()
+  }
+
+  setHeight() {
+    var height = this.node.getBoundingClientRect().height
+    this.props.addHeight(height)
+    this.setState({height})
+  }
+
+  render() {
+    var s = {
+      display: 'block',
+      clear: 'both',
+    }
+    return (
+      <span ref={node => this.node = node}
+          style={s}>
+        {this.props.children}
+      </span>
+    )
+  }
+}
+
+GetHeightWrapper.propTypes = {
+  addHeight: React.PropTypes.func,
+  children: React.PropTypes.node,
+}
+
+
+class InfiniteAnyHeight extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       heights: [],
       list: [],
-    }
-  },
+    };
+
+    this.lastScrollTop = 0
+    this.scrollTopDelta = 0
+  }
 
   getScrollContainer() {
     if (this.props.useWindowAsScrollContainer)
       return document.body
     return this.props.scrollContainer
-  },
+  }
 
   addHeight(i, height) {
     var heights = this.state.heights
@@ -22,85 +65,70 @@ var InfiniteAnyHeight = React.createClass({
     if (scrollDiff && this.scrollTopDelta < 0)
       this.getScrollContainer().scrollTop += scrollDiff
     heights[i] = height
+    this.props.heightsUpdateCallback(heights)
     this.setState({heights})
-  },
+  }
 
   componentDidMount() {
     this.setList(this.props.list)
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.list != this.props.list)
       this.setList(nextProps.list)
-  },
+  }
 
   setList(propsList) {
     var heights = []
-    var list =
-    propsList.map( (x, i)=>{
-      heights[i] = this.state.heights[i] || 200
+
+    var list = propsList.map((x, i) => {
+      heights[i] = this.state.heights[i] || this.props.heights[i] || 200
+
       return (
         <GetHeightWrapper
-          addHeight={this.addHeight.bind(this, i)}
-          key={i}
-        >
+            addHeight={this.addHeight.bind(this, i)}
+            key={i}>
           {x}
         </GetHeightWrapper>
       )
     })
+
     this.setState({
       heights,
       list,
     })
-  },
-
-  lastScrollTop: 0,
-  scrollTopDelta: 0,
+  }
 
   handleScroll() {
     var scrollTop = this.getScrollContainer().scrollTop
     this.scrollTopDelta = scrollTop -this.lastScrollTop
     this.lastScrollTop = scrollTop
-  },
+  }
 
   render() {
     return (
       <ReactInfinite
         elementHeight={this.state.heights}
-        handleScroll={this.handleScroll}
+        handleScroll={this.handleScroll.bind(this)}
         {...this.props}
         >
         {this.state.list}
       </ReactInfinite>
     )
   }
-})
+}
 
-var GetHeightWrapper = React.createClass({
-  getInitialState() {
-    return {height: undefined}
-  },
+InfiniteAnyHeight.defaultProps = {
+  heightsUpdateCallback: ()=>{},
+  heights: []
+}
 
-  componentDidMount() {
-    this.setHeight()
-  },
+InfiniteAnyHeight.propTypes = {
+  heights: React.PropTypes.array,
+  heightsUpdateCallback: React.PropTypes.func,
+  list: React.PropTypes.node,
+  scrollContainer: React.PropTypes.object,
+  useWindowAsScrollContainer: React.PropTypes.bool
+}
 
-  setHeight() {
-    var height = ReactDOM.findDOMNode(this).getBoundingClientRect().height
-    this.props.addHeight(height)
-  },
-  render() {
-    var s = {
-      content: ' ',
-      display: 'block',
-      clear: 'both',
-    }
-    return (
-      <span style={s} className={this.state.height +'-px'}>
-        {this.props.children}
-      </span>
-    )
-  }
-})
-
-module.exports = InfiniteAnyHeight
+export default InfiniteAnyHeight

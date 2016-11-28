@@ -7,7 +7,14 @@ module.exports = {
     devtool: "source-map",
     module: {
         loaders: [
-            { test: /\.jsx?$/, loaders: ['jsx-loader'], exclude: /node_modules/ }
+            {
+              test: /\.jsx?$/,
+              loader: 'babel-loader',
+              exclude: /node_modules/,
+              query: {
+                presets:['react', 'es2015']
+              }
+            }
         ]
     }
 }
