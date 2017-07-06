@@ -6,7 +6,7 @@ Try it - [Live Example](https://radivarig.github.io/#/react-infinite-any-height)
 
 ### Install
 
-`npm install react-infinite-any-height` (peer dependencies: `react`)
+`npm install react-infinite-any-height` (peer dependencies: `react react-dom`)
 
 ### Demo
 
@@ -15,7 +15,7 @@ or run locally
 ```bash
 git clone git@github.com:Radivarig/react-infinite-any-height.git
 npm install
-npm run dev
+npm run dev 
 ```
 navigate to `localhost:8080`
 
@@ -23,50 +23,48 @@ navigate to `localhost:8080`
 
 ```javascript
 // ...
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import InfiniteAnyHeight from 'react-infinite-any-height';
+var React = require('react')
+var ReactDOM = require('react-dom')
 
-class App extends Component {
-  constructor() {
-    super();
+var InfiniteAnyHeight = require('react-infinite-any-height')
 
-    const list = new Array(10000).fill('').map((x, i) => {
-      const height = 100 + Math.round(Math.abs((Math.sin(i) * 250)));
-      const style = { height, border: 'solid 1px', backgroundColor: `#${height}` };
-      return (
-        <div key={i} style={style}>
-          Height: { height + 2 }
-          <div style={{ textAlign: 'center', color: 'white' }}>
-            Item: {i}
+var App = React.createClass({
+  getInitialState() {
+    var list =
+      new Array(10000).fill('').map((x, i)=>{
+        var height = 100 +Math.round(Math.abs((Math.sin(i) *250)))
+        return (
+          <div key={i} style={{height: height, width: '100wv', border: 'solid 1px', backgroundColor: '#' +height}}>
+            height: {height +2 /*border width*/}
+            <div style={{textAlign: 'center', color: 'white'}}>
+              item: {i}
+            </div>
           </div>
-        </div>
-      );
-    });
+        )
+      })
+    return {list}
+  },
 
-    this.state = { list };
-  }
-
-  render() {
+  render: function() {
     return (
       <InfiniteAnyHeight
         list={this.state.list}
         preloadAdditionalHeight={window.innerHeight*2}
         useWindowAsScrollContainer
-      />
-    );
+        />
+    )
   }
-}
+})
 
 var elemDiv = document.createElement('div')
 document.body.appendChild(elemDiv)
 ReactDOM.render(<App/>, elemDiv)
 ```
 
-All `props` are passed to `react-infinite` as well.
-When updating `list` make sure to use `.slice(0)` to change reference.
-If `useWindowAsScrollContainer` is ommited, both `containerHeight` and
-`scrollContainer` (the node that has the active .scrollTop) props are required.
+All `props` are passed to `react-infinite` as well.  
+When updating `list` make sure to use `.slice(0)` to change reference.  
+If `useWindowAsScrollContainer` is ommited, both `containerHeight` and  
+`scrollContainer` (the node that has the active .scrollTop) props are required.  
 
 
 ### License
