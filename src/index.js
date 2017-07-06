@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import ReactInfinite from 'react-infinite';
 import isEqual from 'lodash.isequal';
 import { autobind } from 'core-decorators';
@@ -46,7 +47,7 @@ export default class InfiniteAnyHeight extends Component {
     if (this.props.useWindowAsScrollContainer) {
       return document.body;
     }
-    return this.props.scrollContainer;
+    return ReactDOM.findDOMNode(this);
   }
 
   addHeight(i, height) {
@@ -81,10 +82,13 @@ export default class InfiniteAnyHeight extends Component {
     this.setState({ heights, list });
   }
 
-  handleScroll() {
-    var scrollTop = this.getScrollContainer().scrollTop;
+  handleScroll(...args) {
+    const scrollTop = this.getScrollContainer().scrollTop;
     this.scrollTopDelta = scrollTop - this.lastScrollTop;
     this.lastScrollTop = scrollTop;
+    if (typeof this.props.handleScroll === 'function') {
+      this.props.handleScroll(...args);
+    }
   }
 
   render() {
