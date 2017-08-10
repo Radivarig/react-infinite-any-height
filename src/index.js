@@ -12,11 +12,11 @@ export default class InfiniteAnyHeight extends Component {
   static displayName = 'InfiniteAnyHeight';
 
   static propTypes = {
-    heights: React.PropTypes.array,
-    heightsUpdateCallback: React.PropTypes.func,
-    list: React.PropTypes.node,
-    scrollContainer: React.PropTypes.object,
-    useWindowAsScrollContainer: React.PropTypes.bool
+    heights: PropTypes.array,
+    heightsUpdateCallback: PropTypes.func,
+    list: PropTypes.node,
+    scrollContainer: PropTypes.object,
+    useWindowAsScrollContainer: PropTypes.bool
   };
 
   static defaultProps = {
