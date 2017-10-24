@@ -1,6 +1,6 @@
 {
   "name": "react-infinite-any-height",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "ReactJS component for displaying infinite list of elements with arbitrary height.",
   "author": "Reslav Hollos",
   "license": "MIT",
