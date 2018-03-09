@@ -1,30 +1,30 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
-import ReactInfinite from 'react-infinite'
-import isEqual from 'lodash.isequal'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import ReactDOM from "react-dom"
+import ReactInfinite from "react-infinite"
+import isEqual from "lodash.isequal"
 
-import GetHeightWrapper from './GetHeightWrapper.jsx'
+import GetHeightWrapper from "./GetHeightWrapper.jsx"
 
 export default class InfiniteAnyHeight extends Component {
-  static displayName = 'InfiniteAnyHeight'
+  static displayName = "InfiniteAnyHeight"
 
   static propTypes = {
-    heights: PropTypes.array,
-    heightsUpdateCallback: PropTypes.func,
-    list: PropTypes.node,
-    scrollContainer: PropTypes.object,
-    useWindowAsScrollContainer: PropTypes.bool
+    "heights": PropTypes.array,
+    "heightsUpdateCallback": PropTypes.func,
+    "list": PropTypes.node,
+    "scrollContainer": PropTypes.object,
+    "useWindowAsScrollContainer": PropTypes.bool,
   }
 
   static defaultProps = {
-    heightsUpdateCallback: () => {},
-    heights: [],
+    "heightsUpdateCallback": () => {},
+    "heights": [],
   }
 
   state = {
-    heights: [],
-    list: [],
+    "heights": [],
+    "list": [],
   }
 
   lastScrollTop = 0
@@ -32,12 +32,12 @@ export default class InfiniteAnyHeight extends Component {
   scrollTopDelta = 0
 
   componentDidMount = () => {
-    this.setList(this.props.list)
+    this.setList (this.props.list)
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (!isEqual(nextProps.list, this.props.list)) {
-      this.setList(nextProps.list)
+    if (!isEqual (nextProps.list, this.props.list)) {
+      this.setList (nextProps.list)
     }
   }
 
@@ -45,7 +45,7 @@ export default class InfiniteAnyHeight extends Component {
     if (this.props.useWindowAsScrollContainer) {
       return document.body
     }
-    return ReactDOM.findDOMNode(this)
+    return ReactDOM.findDOMNode (this)
   }
 
   addHeight = (i, height) => {
@@ -53,23 +53,23 @@ export default class InfiniteAnyHeight extends Component {
     const scrollDiff = height - heights[i]
 
     if (scrollDiff && this.scrollTopDelta < 0) {
-      this.getScrollContainer().scrollTop += scrollDiff
+      this.getScrollContainer ().scrollTop += scrollDiff
     }
 
     heights[i] = height
-    this.props.heightsUpdateCallback(heights)
-    this.setState({ heights })
+    this.props.heightsUpdateCallback (heights)
+    this.setState ({ heights })
   }
 
   setList = (listProp) => {
     const heights = []
 
-    const list = listProp.map((item, i) => {
+    const list = listProp.map ((item, i) => {
       heights[i] = this.state.heights[i] || this.props.heights[i] || 200
 
       return (
         <GetHeightWrapper
-          addHeight={(height) => this.addHeight(i, height)}
+          addHeight={(height) => this.addHeight (i, height)}
           key={i}
         >
           {item}
@@ -77,27 +77,25 @@ export default class InfiniteAnyHeight extends Component {
       )
     })
 
-    this.setState({ heights, list })
+    this.setState ({ heights, list })
   }
 
   handleScroll = (...args) => {
-    const scrollTop = this.getScrollContainer().scrollTop
+    const scrollTop = this.getScrollContainer ().scrollTop
     this.scrollTopDelta = scrollTop - this.lastScrollTop
     this.lastScrollTop = scrollTop
-    if (typeof this.props.handleScroll === 'function') {
-      this.props.handleScroll(...args)
+    if (typeof this.props.handleScroll === "function") {
+      this.props.handleScroll (...args)
     }
   }
 
-  render = () => {
-    return (
-      <ReactInfinite
-        elementHeight={this.state.heights}
-        handleScroll={this.handleScroll}
-        {...this.props}
-      >
-        {this.state.list}
-      </ReactInfinite>
-    )
-  }
+  render = () => (
+    <ReactInfinite
+      elementHeight={this.state.heights}
+      handleScroll={this.handleScroll}
+      {...this.props}
+    >
+      {this.state.list}
+    </ReactInfinite>
+  )
 }
