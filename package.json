@@ -1,7 +1,7 @@
 {
   "name": "react-infinite-any-height",
   "version": "2.0.2",
-  "description": "ReactJS component for displaying infinite list of elements with arbitrary height.",
+  "description": "Wrapper component for react-infinite which auto calculates element heights.",
   "author": "Reslav Hollos <reslav.hollos@gmail.com> (http://radivarig.github.io)",
   "license": "MIT",
   "main": "./dist/main.js",
