@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import InfiniteAnyHeight from '../src/index';
+import React, { Component } from 'react'
+import InfiniteAnyHeight from './InfiniteAnyHeight.jsx'
 
 export default class InfiniteAnyHeightViewer extends Component {
   constructor() {
-    super();
+    super()
 
     const list = new Array(10000).fill('').map((x, i) => {
-      const height = 100 + Math.round(Math.abs((Math.sin(i) * 250)));
-      const style = { height, border: 'solid 1px', backgroundColor: `#${height}` };
+      const height = 100 + Math.round(Math.abs((Math.sin(i) * 250)))
+      const style = { height, border: 'solid 1px', backgroundColor: `#${height}` }
       return (
         <div key={i} style={style}>
           Height: { height + 2 }
@@ -15,10 +15,10 @@ export default class InfiniteAnyHeightViewer extends Component {
             Item: {i}
           </div>
         </div>
-      );
-    });
+      )
+    })
 
-    this.state = { list };
+    this.state = { list }
   }
 
   render() {
@@ -28,6 +28,6 @@ export default class InfiniteAnyHeightViewer extends Component {
         preloadAdditionalHeight={window.innerHeight*2}
         useWindowAsScrollContainer
       />
-    );
+    )
   }
 }
