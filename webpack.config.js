@@ -1,14 +1,16 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 
+const mainFile = "InfiniteAnyHeight.jsx"
+
 module.exports = {
   entry: {
-    main: __dirname + "/src/InfiniteAnyHeight.jsx",
+    main: __dirname + "/src/" + mainFile,
   },
 
   output: {
     filename: "[name].js",
     path: __dirname + "/dist",
-    library: "InfiniteAnyHeight",
+    library: mainFile.substring (0, mainFile.indexOf(".")),
     libraryTarget: "umd",
   },
 
