@@ -1,6 +1,6 @@
 {
   "name": "react-infinite-any-height",
-  "version": "2.0.2",
+  "version": "2.3.0",
   "description": "Wrapper component for react-infinite which auto calculates element heights.",
   "author": "Reslav Hollos <reslav.hollos@gmail.com> (http://radivarig.github.io)",
   "license": "MIT",
