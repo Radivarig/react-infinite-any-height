@@ -15,7 +15,8 @@ module.exports = {
     libraryTarget: "umd",
   },
 
-  externals: Object.keys(packageJson.peerDependencies),
+  externals: process.env.NODE_ENV == "development" ? [] :
+    Object.keys(packageJson.peerDependencies),
 
   devtool: "source-map",
 
